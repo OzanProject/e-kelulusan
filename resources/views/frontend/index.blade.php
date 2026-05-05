@@ -5,7 +5,7 @@
 @section('content')
 
 <!-- Hero Section -->
-<header class="relative w-full h-[450px] flex items-center justify-center bg-inverse-surface overflow-hidden">
+<header class="relative w-full min-h-[450px] py-20 flex items-center justify-center bg-inverse-surface overflow-hidden">
     @php
         $heroBg = $setting->hero_background 
             ? asset('storage/' . $setting->hero_background)
@@ -26,8 +26,8 @@
             </div>
         @endif
         
-        <h1 class="font-headline-xl text-headline-xl text-on-primary mb-4 drop-shadow-md">{{ $setting->hero_title ?? 'Selamat & Sukses! Pengumuman Kelulusan Angkatan ' . date('Y') }}</h1>
-        <p class="font-body-lg text-body-lg text-surface-container-low max-w-2xl drop-shadow">{{ $setting->hero_description ?? 'Akses hasil kelulusan, jadwal pengambilan dokumen, dan informasi purna studi melalui portal ini.' }}</p>
+        <h1 class="text-3xl md:text-headline-xl font-bold text-on-primary mb-4 drop-shadow-md leading-tight">{{ $setting->hero_title ?? 'Selamat & Sukses! Pengumuman Kelulusan Angkatan ' . date('Y') }}</h1>
+        <p class="text-base md:text-body-lg text-surface-container-low max-w-2xl drop-shadow px-4">{{ $setting->hero_description ?? 'Akses hasil kelulusan, jadwal pengambilan dokumen, dan informasi purna studi melalui portal ini.' }}</p>
     </div>
 </header>
 
@@ -50,22 +50,22 @@
             @if($setting->announcement_date && $setting->announcement_status)
                 <div class="border-t border-outline-variant pt-4 text-center">
                     <p class="font-label-bold text-primary mb-3">Pengumuman akan dibuka dalam:</p>
-                    <div class="flex justify-center gap-4" id="countdown">
-                        <div class="bg-surface-container-low p-3 rounded text-center min-w-[70px]">
-                            <div class="font-headline-lg text-on-surface" id="days">00</div>
-                            <div class="font-label-sm text-outline">HARI</div>
+                    <div class="grid grid-cols-4 sm:flex sm:justify-center gap-2 md:gap-4" id="countdown">
+                        <div class="bg-surface-container-low p-2 md:p-3 rounded text-center min-w-[60px] md:min-w-[70px]">
+                            <div class="text-xl md:text-headline-lg font-bold text-on-surface" id="days">00</div>
+                            <div class="text-[10px] md:text-label-sm text-outline">HARI</div>
                         </div>
-                        <div class="bg-surface-container-low p-3 rounded text-center min-w-[70px]">
-                            <div class="font-headline-lg text-on-surface" id="hours">00</div>
-                            <div class="font-label-sm text-outline">JAM</div>
+                        <div class="bg-surface-container-low p-2 md:p-3 rounded text-center min-w-[60px] md:min-w-[70px]">
+                            <div class="text-xl md:text-headline-lg font-bold text-on-surface" id="hours">00</div>
+                            <div class="text-[10px] md:text-label-sm text-outline">JAM</div>
                         </div>
-                        <div class="bg-surface-container-low p-3 rounded text-center min-w-[70px]">
-                            <div class="font-headline-lg text-on-surface" id="mins">00</div>
-                            <div class="font-label-sm text-outline">MENIT</div>
+                        <div class="bg-surface-container-low p-2 md:p-3 rounded text-center min-w-[60px] md:min-w-[70px]">
+                            <div class="text-xl md:text-headline-lg font-bold text-on-surface" id="mins">00</div>
+                            <div class="text-[10px] md:text-label-sm text-outline">MENIT</div>
                         </div>
-                        <div class="bg-surface-container-low p-3 rounded text-center min-w-[70px]">
-                            <div class="font-headline-lg text-primary" id="secs">00</div>
-                            <div class="font-label-sm text-outline">DETIK</div>
+                        <div class="bg-surface-container-low p-2 md:p-3 rounded text-center min-w-[60px] md:min-w-[70px]">
+                            <div class="text-xl md:text-headline-lg font-bold text-primary" id="secs">00</div>
+                            <div class="text-[10px] md:text-label-sm text-outline">DETIK</div>
                         </div>
                     </div>
                 </div>
