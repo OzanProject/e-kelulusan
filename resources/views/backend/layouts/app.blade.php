@@ -166,7 +166,8 @@
                     // 1. href exists and isn't just '#' or 'javascript:void(0)'
                     // 2. target isn't '_blank' (new tab)
                     // 3. Not a file download or same-page anchor
-                    if (href && href !== '#' && !href.startsWith('#') && !href.startsWith('javascript') && target !== '_blank' && !this.hasAttribute('download') && !this.hasAttribute('data-bs-toggle') && !this.hasAttribute('data-bs-theme-value')) {
+                    // 4. Doesn't have 'no-loader' class
+                    if (href && href !== '#' && !href.startsWith('#') && !href.startsWith('javascript') && target !== '_blank' && !this.hasAttribute('download') && !this.hasAttribute('data-bs-toggle') && !this.hasAttribute('data-bs-theme-value') && !this.classList.contains('no-loader')) {
                         showLoading();
                     }
                 });

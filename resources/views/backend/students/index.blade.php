@@ -202,7 +202,7 @@
 
             <div class="vr mx-1 d-none" id="bulkSeparator"></div>
 
-            <a href="{{ route('admin.students.export') }}" class="btn btn-sm btn-outline-success">
+            <a href="{{ route('admin.students.export') }}" class="btn btn-sm btn-outline-success no-loader">
                 <i class="bi bi-file-earmark-spreadsheet"></i> Export Excel
             </a>
             <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#importModal">
@@ -379,7 +379,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Batal</button>
-            <a href="{{ route('admin.students.template') }}" class="btn btn-outline-success btn-sm">
+            <a href="{{ route('admin.students.template') }}" class="btn btn-outline-success btn-sm no-loader">
                 <i class="bi bi-download"></i> Download Template
             </a>
             <button type="submit" class="btn btn-success btn-sm">

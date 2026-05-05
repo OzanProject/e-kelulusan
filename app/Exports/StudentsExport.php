@@ -18,17 +18,18 @@ class StudentsExport implements FromCollection, WithHeadings, WithMapping
     public function headings(): array
     {
         $subjects = Subject::aktif();
-        $headings = ['Nama Lengkap', 'NISN', 'Nomor Peserta', 'Status Kelulusan'];
+        $headings = ['Nama Lengkap', 'NISN', 'NIS (Nomor Peserta)'];
 
         foreach ($subjects as $subject) {
             $headings[] = $subject->nama;
         }
 
-        $headings[] = 'Total Nilai';
+        $headings[] = 'TTL';
         $headings[] = 'Sakit';
         $headings[] = 'Izin';
         $headings[] = 'Alpa';
         $headings[] = 'Pramuka';
+        $headings[] = 'Status Kelulusan';
 
         return $headings;
     }
@@ -40,7 +41,6 @@ class StudentsExport implements FromCollection, WithHeadings, WithMapping
             $student->nama_lengkap,
             $student->nisn,
             $student->nomor_peserta,
-            strtoupper($student->status_kelulusan),
         ];
 
         foreach ($subjects as $subject) {
@@ -52,6 +52,7 @@ class StudentsExport implements FromCollection, WithHeadings, WithMapping
         $data[] = $student->nilai_ujian['Izin'] ?? 0;
         $data[] = $student->nilai_ujian['Alpa'] ?? 0;
         $data[] = $student->nilai_ujian['Pramuka'] ?? '-';
+        $data[] = strtoupper($student->status_kelulusan);
 
         return $data;
     }
