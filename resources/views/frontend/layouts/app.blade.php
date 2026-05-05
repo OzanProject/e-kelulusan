@@ -13,14 +13,14 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="@yield('title', 'Beranda') | {{ $school_setting->school_name ?? 'E-Kelulusan' }}">
+    <meta property="og:title" content="{{ View::yieldContent('title', 'Beranda') }} | {{ $school_setting->school_name ?? 'E-Kelulusan' }}">
     <meta property="og:description" content="{{ $school_setting->hero_description ?? 'Portal Resmi Pengumuman Kelulusan Siswa.' }}">
     <meta property="og:image" content="{{ $school_setting && $school_setting->school_logo ? asset('storage/' . $school_setting->school_logo) : asset('favicon.ico') }}">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{ url()->current() }}">
-    <meta property="twitter:title" content="@yield('title', 'Beranda') | {{ $school_setting->school_name ?? 'E-Kelulusan' }}">
+    <meta property="twitter:title" content="{{ View::yieldContent('title', 'Beranda') }} | {{ $school_setting->school_name ?? 'E-Kelulusan' }}">
     <meta property="twitter:description" content="{{ $school_setting->hero_description ?? 'Portal Resmi Pengumuman Kelulusan Siswa.' }}">
     <meta property="twitter:image" content="{{ $school_setting && $school_setting->school_logo ? asset('storage/' . $school_setting->school_logo) : asset('favicon.ico') }}">
 
@@ -29,20 +29,20 @@
     <!-- Structured Data (JSON-LD) for Google -->
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
-      "@type": "EducationalOrganization",
+      "@@context": "https://schema.org",
+      "@@type": "EducationalOrganization",
       "name": "{{ $school_setting->school_name ?? 'E-Kelulusan' }}",
       "url": "{{ url('/') }}",
       "logo": "{{ $school_setting && $school_setting->school_logo ? asset('storage/' . $school_setting->school_logo) : asset('favicon.ico') }}",
       "description": "{{ $school_setting->hero_description ?? 'Portal Resmi Pengumuman Kelulusan Siswa.' }}",
       "address": {
-        "@type": "PostalAddress",
+        "@@type": "PostalAddress",
         "streetAddress": "{{ $school_setting->address ?? '' }}",
         "addressLocality": "{{ $school_setting->school_address_city ?? '' }}",
         "addressCountry": "ID"
       },
       "contactPoint": {
-        "@type": "ContactPoint",
+        "@@type": "ContactPoint",
         "telephone": "{{ $school_setting->phone ?? '' }}",
         "contactType": "customer service"
       }
