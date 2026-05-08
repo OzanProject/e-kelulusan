@@ -17,10 +17,23 @@
             <div class="card-header bg-white border-bottom">
                 <h5 class="card-title mb-0 fw-bold text-primary"><i class="bi bi-person-gear me-1"></i> Data Akun</h5>
             </div>
-            <form action="{{ route('admin.profile.update') }}" method="POST">
+            <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="card-body">
+                    <div class="mb-3 text-center">
+                        @if($user->avatar)
+                            <img src="{{ asset('uploads/avatars/' . $user->avatar) }}" class="rounded-circle shadow-sm mb-3" width="120" height="120" style="object-fit: cover;" alt="Avatar">
+                        @else
+                            <img src="{{ asset('adminlte/dist/assets/img/user2-160x160.jpg') }}" class="rounded-circle shadow-sm mb-3" width="120" height="120" style="object-fit: cover;" alt="Default Avatar">
+                        @endif
+                        <div class="mt-2">
+                            <label class="form-label fw-bold d-block">Foto Profil</label>
+                            <input type="file" name="avatar" class="form-control form-control-sm mx-auto" style="max-width: 300px;" accept="image/jpeg,image/png,image/jpg">
+                            <small class="text-muted">Maks. 2MB (JPG, JPEG, PNG)</small>
+                        </div>
+                    </div>
+                    <hr class="my-4">
                     <div class="mb-3">
                         <label class="form-label fw-bold">Nama Lengkap</label>
                         <input type="text" name="name" class="form-control" value="{{ old('name', $user->name) }}" required>

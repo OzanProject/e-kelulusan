@@ -35,66 +35,82 @@
     z-index: 2;
 }
 
-/* ── Sticky kolom CHECKBOX + NO + NAMA ── */
+/* ── Definisi lebar kolom ── */
 .table-students th.col-check,
 .table-students td.col-check {
-    position: sticky;
-    left: 0;
-    z-index: 3;
     min-width: 35px;
     text-align: center;
 }
 .table-students th.col-no,
 .table-students td.col-no {
-    position: sticky;
-    left: 35px;
-    z-index: 3;
     min-width: 40px;
     text-align: center;
 }
 .table-students th.col-nama,
 .table-students td.col-nama {
-    position: sticky;
-    left: 75px;
-    z-index: 3;
     min-width: 180px;
     text-align: left;
 }
-.table-students thead th.col-check,
-.table-students thead th.col-no,
-.table-students thead th.col-nama { z-index: 4; background-color: #1d6fac; }
-
-.table-students tbody td.col-check,
-.table-students tbody td.col-no,
-.table-students tbody td.col-nama {
-    background-color: #fff;
-}
-.table-students tbody td.col-nama {
-    border-right: 2px solid #dee2e6;
-}
-
-.table-students tbody tr:nth-child(even) td.col-check,
-.table-students tbody tr:nth-child(even) td.col-no,
-.table-students tbody tr:nth-child(even) td.col-nama { background-color: #f8f9fa; }
-
-.table-students tbody tr.row-tidak-lulus td.col-check,
-.table-students tbody tr.row-tidak-lulus td.col-no,
-.table-students tbody tr.row-tidak-lulus td.col-nama { background-color: #f8d7da; }
-
-/* ── Sticky kolom AKSI ── */
 .table-students th.col-aksi,
 .table-students td.col-aksi {
-    position: sticky;
-    right: 0;
-    z-index: 3;
     min-width: 80px;
     text-align: center;
-    border-left: 2px solid #dee2e6;
 }
-.table-students thead th.col-aksi { z-index: 4; background-color: #1d6fac; }
-.table-students tbody td.col-aksi { background-color: #fff; }
-.table-students tbody tr:nth-child(even) td.col-aksi { background-color: #f8f9fa; }
-.table-students tbody tr.row-tidak-lulus td.col-aksi { background-color: #f8d7da; }
+
+/* ── Sticky kolom (Hanya Desktop) ── */
+@media (min-width: 992px) {
+    .table-students th.col-check,
+    .table-students td.col-check {
+        position: sticky;
+        left: 0;
+        z-index: 3;
+    }
+    .table-students th.col-no,
+    .table-students td.col-no {
+        position: sticky;
+        left: 35px;
+        z-index: 3;
+    }
+    .table-students th.col-nama,
+    .table-students td.col-nama {
+        position: sticky;
+        left: 75px;
+        z-index: 3;
+    }
+    .table-students thead th.col-check,
+    .table-students thead th.col-no,
+    .table-students thead th.col-nama { z-index: 4; background-color: #1d6fac; }
+
+    .table-students tbody td.col-check,
+    .table-students tbody td.col-no,
+    .table-students tbody td.col-nama {
+        background-color: #fff;
+    }
+    .table-students tbody td.col-nama {
+        border-right: 2px solid #dee2e6;
+    }
+
+    .table-students tbody tr:nth-child(even) td.col-check,
+    .table-students tbody tr:nth-child(even) td.col-no,
+    .table-students tbody tr:nth-child(even) td.col-nama { background-color: #f8f9fa; }
+
+    .table-students tbody tr.row-tidak-lulus td.col-check,
+    .table-students tbody tr.row-tidak-lulus td.col-no,
+    .table-students tbody tr.row-tidak-lulus td.col-nama { background-color: #f8d7da; }
+
+    /* ── Sticky kolom AKSI ── */
+    .table-students th.col-aksi,
+    .table-students td.col-aksi {
+        position: sticky;
+        right: 0;
+        z-index: 3;
+        border-left: 2px solid #dee2e6;
+    }
+    .table-students thead th.col-aksi { z-index: 4; background-color: #1d6fac; }
+    .table-students tbody td.col-aksi { background-color: #fff; }
+    .table-students tbody tr:nth-child(even) td.col-aksi { background-color: #f8f9fa; }
+    .table-students tbody tr.row-tidak-lulus td.col-aksi { background-color: #f8d7da; }
+}
 
 /* ── Baris data ── */
 .table-students tbody tr { transition: background .15s; }

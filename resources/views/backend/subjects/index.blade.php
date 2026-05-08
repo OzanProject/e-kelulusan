@@ -34,19 +34,26 @@
     z-index: 2;
 }
 
-/* ── Sticky kolom CHECKBOX + NO + KODE ── */
-.table-main th.col-check, .table-main td.col-check { position: sticky; left: 0; z-index: 3; min-width: 40px; text-align: center; }
-.table-main th.col-no, .table-main td.col-no { position: sticky; left: 40px; z-index: 3; min-width: 50px; text-align: center; }
-.table-main th.col-kode, .table-main td.col-kode { position: sticky; left: 90px; z-index: 3; min-width: 100px; text-align: center; }
+/* ── Definisi lebar kolom ── */
+.table-main th.col-check, .table-main td.col-check { min-width: 40px; text-align: center; }
+.table-main th.col-no, .table-main td.col-no { min-width: 50px; text-align: center; }
+.table-main th.col-kode, .table-main td.col-kode { min-width: 100px; text-align: center; }
 
-.table-main thead th.col-check, .table-main thead th.col-no, .table-main thead th.col-kode { z-index: 4; background-color: #198754; }
+/* ── Sticky kolom (Hanya Desktop) ── */
+@media (min-width: 992px) {
+    .table-main th.col-check, .table-main td.col-check { position: sticky; left: 0; z-index: 3; }
+    .table-main th.col-no, .table-main td.col-no { position: sticky; left: 40px; z-index: 3; }
+    .table-main th.col-kode, .table-main td.col-kode { position: sticky; left: 90px; z-index: 3; }
 
-.table-main tbody td.col-check, .table-main tbody td.col-no, .table-main tbody td.col-kode { background-color: #fff; }
-.table-main tbody td.col-kode { border-right: 2px solid #dee2e6; }
+    .table-main thead th.col-check, .table-main thead th.col-no, .table-main thead th.col-kode { z-index: 4; background-color: #198754; }
 
-.table-main tbody tr:nth-child(even) td.col-check,
-.table-main tbody tr:nth-child(even) td.col-no,
-.table-main tbody tr:nth-child(even) td.col-kode { background-color: #f8f9fa; }
+    .table-main tbody td.col-check, .table-main tbody td.col-no, .table-main tbody td.col-kode { background-color: #fff; }
+    .table-main tbody td.col-kode { border-right: 2px solid #dee2e6; }
+
+    .table-main tbody tr:nth-child(even) td.col-check,
+    .table-main tbody tr:nth-child(even) td.col-no,
+    .table-main tbody tr:nth-child(even) td.col-kode { background-color: #f8f9fa; }
+}
 
 /* ── Baris data ── */
 .table-main tbody tr { transition: background .15s; }

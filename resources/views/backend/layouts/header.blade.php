@@ -25,7 +25,7 @@
                     <span class="theme-icon-active">
                         <i class="bi bi-circle-fill-half-stroke my-1"></i>
                     </span>
-                    <span class="d-lg-none ms-2" id="bd-theme-text">Toggle theme</span>
+                    <span class="d-none" id="bd-theme-text">Toggle theme</span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text" style="--bs-dropdown-min-width: 8rem;">
                     <li>
@@ -52,13 +52,13 @@
             <!-- User Menu Dropdown -->
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                    <img src="{{ asset('adminlte/dist/assets/img/user2-160x160.jpg') }}" class="user-image rounded-circle shadow" alt="User Image">
+                    <img src="{{ auth()->user()->avatar ? asset('uploads/avatars/' . auth()->user()->avatar) : asset('adminlte/dist/assets/img/user2-160x160.jpg') }}" class="user-image rounded-circle shadow" style="object-fit: cover;" alt="User Image">
                     <span class="d-none d-md-inline">{{ auth()->user()->name }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                     <!-- User image -->
                     <li class="user-header text-bg-primary">
-                        <img src="{{ asset('adminlte/dist/assets/img/user2-160x160.jpg') }}" class="rounded-circle shadow" alt="User Image">
+                        <img src="{{ auth()->user()->avatar ? asset('uploads/avatars/' . auth()->user()->avatar) : asset('adminlte/dist/assets/img/user2-160x160.jpg') }}" class="rounded-circle shadow" style="object-fit: cover;" alt="User Image">
                         <p>
                             {{ auth()->user()->name }}
                             <small class="badge bg-white text-primary text-uppercase">{{ auth()->user()->role }}</small>
