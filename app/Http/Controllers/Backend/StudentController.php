@@ -167,7 +167,7 @@ class StudentController extends Controller
         $subjects = $this->getMapel();
         
         $kop_base64 = null;
-        if ($setting->kop_surat && file_exists(storage_path('app/public/' . $setting->kop_surat))) {
+        if ($setting->kop_surat && is_file(storage_path('app/public/' . $setting->kop_surat))) {
             $path = storage_path('app/public/' . $setting->kop_surat);
             $type = pathinfo($path, PATHINFO_EXTENSION);
             $data = file_get_contents($path);
@@ -175,7 +175,7 @@ class StudentController extends Controller
         }
 
         $signature_base64 = null;
-        if ($setting->signature && file_exists(storage_path('app/public/' . $setting->signature))) {
+        if ($setting->signature && is_file(storage_path('app/public/' . $setting->signature))) {
             $path = storage_path('app/public/' . $setting->signature);
             $type = pathinfo($path, PATHINFO_EXTENSION);
             $data = file_get_contents($path);
@@ -183,19 +183,21 @@ class StudentController extends Controller
         }
 
         $stamp_base64 = null;
-        if ($setting->stamp && file_exists(storage_path('app/public/' . $setting->stamp))) {
+        if ($setting->stamp && is_file(storage_path('app/public/' . $setting->stamp))) {
             $path = storage_path('app/public/' . $setting->stamp);
             $type = pathinfo($path, PATHINFO_EXTENSION);
             $data = file_get_contents($path);
             $stamp_base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
         }
 
-        $skl_number = str_replace(['[YEAR]', '[NIS]'], [date('Y'), $student->nisn], $setting->skl_number_format ?? '.../SKL/...');
+        $skl_number_format = $setting->skl_number_format ?? '[YEAR]/SKL/[NIS]';
+        $skl_number = str_replace(['[YEAR]', '[NIS]'], [date('Y'), $student->nomor_peserta], $skl_number_format);
         
         \Illuminate\Support\Carbon::setLocale('id');
         $skl_date = \Illuminate\Support\Carbon::now()->translatedFormat('d F Y');
 
-        $qrcode_base64 = base64_encode(\SimpleSoftwareIO\QrCode\Facades\QrCode::format('svg')->size(100)->generate(url('/verify/' . $student->nisn)));
+        $verifyUrl = route('verify.skl', $student->nomor_peserta);
+        $qrcode_base64 = base64_encode(\SimpleSoftwareIO\QrCode\Facades\QrCode::format('svg')->size(100)->errorCorrection('H')->generate($verifyUrl));
         $qrcode_base64 = 'data:image/svg+xml;base64,' . $qrcode_base64;
 
         return compact('student', 'setting', 'subjects', 'kop_base64', 'signature_base64', 'stamp_base64', 'skl_number', 'skl_date', 'qrcode_base64');
@@ -204,7 +206,7 @@ class StudentController extends Controller
     public function printPdf($id)
     {
         $student = Student::findOrFail($id);
-        $setting = Setting::first();
+        $setting = Setting::first() ?? new Setting();
         $data = $this->preparePdfData($student, $setting);
 
         $pdf = Pdf::loadView('backend.students.pdf_skl', $data)
@@ -221,7 +223,7 @@ class StudentController extends Controller
         }
 
         $students = Student::whereIn('id', $ids)->get();
-        $setting = Setting::first();
+        $setting = Setting::first() ?? new Setting();
         
         $preparedStudents = [];
         foreach ($students as $student) {

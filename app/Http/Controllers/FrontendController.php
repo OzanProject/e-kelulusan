@@ -81,15 +81,15 @@ class FrontendController extends Controller
     public function downloadSkl($id)
     {
         $student = Student::findOrFail($id);
-        $setting = Setting::first();
+        $setting = Setting::first() ?? new Setting();
         $subjects = Subject::aktif();
 
         if ($student->status_kelulusan !== 'lulus') {
             abort(403, 'SKL hanya tersedia untuk siswa yang lulus.');
         }
 
-        $kop_base64 = $this->imageToBase64(public_path('storage/' . $setting->kop_surat));
-        $stamp_base64 = $this->imageToBase64(public_path('storage/' . $setting->stamp));
+        $kop_base64 = $setting->kop_surat ? $this->imageToBase64(public_path('storage/' . $setting->kop_surat)) : null;
+        $stamp_base64 = $setting->stamp ? $this->imageToBase64(public_path('storage/' . $setting->stamp)) : null;
         
         // Generate QR Code for Verification (SVG to avoid Imagick dependency)
         $verifyUrl = route('verify.skl', $student->nomor_peserta);
@@ -97,7 +97,7 @@ class FrontendController extends Controller
                         ->size(150)->errorCorrection('H')
                         ->generate($verifyUrl));
         $qrcode_base64 = 'data:image/svg+xml;base64,' . $qrcode;
-        $signature_base64 = $this->imageToBase64(public_path('storage/' . $setting->signature));
+        $signature_base64 = $setting->signature ? $this->imageToBase64(public_path('storage/' . $setting->signature)) : null;
 
         // Parse SKL Number
         $skl_number_format = $setting->skl_number_format ?? '[YEAR]/SKL/[NIS]';
@@ -121,19 +121,20 @@ class FrontendController extends Controller
         $pdf->getDomPDF()->set_option('isHtml5ParserEnabled', true);
         $pdf->getDomPDF()->set_option('isRemoteEnabled', true);
 
-        return $pdf->download('SKL_' . $student->nomor_peserta . '_' . str_replace(' ', '_', $student->nama_lengkap) . '.pdf');
+        $safeName = preg_replace('/[^A-Za-z0-9_\-]/', '_', $student->nama_lengkap);
+        return $pdf->download('SKL_' . $student->nomor_peserta . '_' . $safeName . '.pdf');
     }
 
     public function verify($nomor_peserta)
     {
         $student = Student::where('nomor_peserta', $nomor_peserta)->firstOrFail();
-        $setting = Setting::first();
+        $setting = Setting::first() ?? new Setting();
         return view('frontend.verify', compact('student', 'setting'));
     }
 
     private function imageToBase64($path)
     {
-        if (file_exists($path)) {
+        if (is_file($path)) {
             $type = pathinfo($path, PATHINFO_EXTENSION);
             $data = file_get_contents($path);
             return 'data:image/' . $type . ';base64,' . base64_encode($data);
